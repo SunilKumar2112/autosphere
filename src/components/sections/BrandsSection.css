@@ -1,0 +1,94 @@
+.brands-section {
+    padding: clamp(4rem, 6vw, 6rem) clamp(2rem, 5vw, 5rem);
+    background: var(--color-bg-secondary);
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.brands-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.brands-header .section-title {
+    font-weight: var(--font-weight-light);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ─── Marquee Container ─── */
+.brands-marquee-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.brands-marquee {
+    display: flex;
+    gap: 4rem;
+    animation: marqueeScroll 30s linear infinite;
+    width: max-content;
+}
+
+.brands-marquee:hover {
+    animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* ─── Individual Brand Item ─── */
+.brand-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+    cursor: default;
+}
+
+.brand-item:hover {
+    opacity: 0.9;
+}
+
+.brand-icon-img {
+    height: 36px;
+    width: auto;
+    max-width: 60px;
+    object-fit: contain;
+    flex-shrink: 0;
+    /* Convert colored logos to elegant silver/white overlays for dark background */
+    filter: grayscale(1) invert(1) brightness(1.2);
+    /* Make them blend in smoothly */
+    mix-blend-mode: screen;
+}
+
+.brand-name {
+    font-size: 1rem;
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+    .brands-marquee {
+        gap: 2.5rem;
+        animation-duration: 20s;
+    }
+
+    .brand-name {
+        font-size: 0.85rem;
+    }
+}

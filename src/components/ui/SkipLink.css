@@ -1,0 +1,27 @@
+/* ═══════════════════════════════════════════════════════════════
+   SKIP LINK — Accessibility (WCAG 2.4.1)
+   Visually hidden, revealed on :focus for keyboard users
+   ═══════════════════════════════════════════════════════════════ */
+
+.as-skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 10000;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-accent-gold, #c9a96e);
+    color: #0a0a0a;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: 0 0 8px 8px;
+    transition: top 0.2s ease;
+}
+
+.as-skip-link:focus {
+    top: 0;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}

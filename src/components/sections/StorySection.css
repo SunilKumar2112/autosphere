@@ -1,0 +1,284 @@
+/* ============================================
+   Story Section — Enterprise Left/Right Layout
+   ============================================ */
+
+.story-section {
+    position: relative;
+    background-color: var(--color-bg-primary);
+    /* Dark theme integration */
+    color: var(--color-text-primary);
+    padding: clamp(6rem, 10vw, 10rem) clamp(1.5rem, 5vw, 5rem);
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* ─── Intro Header ─── */
+.story-intro-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto clamp(5rem, 10vw, 8rem);
+    opacity: 0;
+    animation: fadeUpIn 1s ease 0.2s forwards;
+}
+
+.story-intro-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: var(--font-weight-light);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.story-intro-title span {
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(135deg, #fff 0%, var(--color-text-muted) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.story-intro-desc {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+@keyframes fadeUpIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── Cards Container ─── */
+.story-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6rem, 15vw, 12rem);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ─── Individual Card Layout ─── */
+.story-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .story-card {
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+    }
+
+    /* Alternating Sides */
+    .story-card.layout-right .story-card-image-content {
+        order: 2;
+    }
+
+    .story-card.layout-right .story-card-text-content {
+        order: 1;
+        padding-left: 4rem;
+        /* Indent text slightly when on left */
+    }
+
+    .story-card.layout-left .story-card-text-content {
+        padding-right: 4rem;
+        /* Indent text slightly when on right */
+    }
+}
+
+/* ─── Image Content (Slow Motion Zoom) ─── */
+.story-card-image-content {
+    position: relative;
+    width: 100%;
+}
+
+.story-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 4px;
+    /* Initial state before reveal */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, transparent 40%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.story-card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.15);
+    /* Start scaled up for slow motion effect */
+    transition: transform 10s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+
+/* ─── Text Content ─── */
+.story-card-text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.story-card-number {
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 200;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.05);
+    /* Ghost text */
+    margin-bottom: -1.5rem;
+    letter-spacing: -0.05em;
+    /* Initial state */
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.layout-right .story-card-number {
+    transform: translateX(30px);
+}
+
+.story-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    /* Initial state */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.story-card-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-accent-gold);
+}
+
+.story-card-line {
+    height: 1px;
+    width: 40px;
+    background-color: var(--color-accent-gold);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.8s ease 0.4s;
+}
+
+.story-card-title {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: var(--font-weight-light);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    /* Initial state */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+}
+
+.story-card-desc {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    max-width: 90%;
+    margin-bottom: 2.5rem;
+    /* Initial state */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+}
+
+.story-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    /* Initial state */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+}
+
+.story-card-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+.story-card-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-accent-gold);
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.story-card-btn:hover svg {
+    transform: translateX(6px);
+}
+
+.story-card-btn:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+/* ─── IS REVEALED ANIMATIONS (Triggered by JS) ─── */
+.is-revealed .story-card-image-wrapper {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Slow-motion continuous zoom once revealed */
+.is-revealed .story-card-image-wrapper img {
+    transform: scale(1);
+}
+
+.is-revealed .story-card-number {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.is-revealed .story-card-meta,
+.is-revealed .story-card-title,
+.is-revealed .story-card-desc,
+.is-revealed .story-card-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.is-revealed .story-card-line {
+    transform: scaleX(1);
+}

@@ -1,0 +1,881 @@
+/* ═══════════════════════════════════════════════════════════════
+   JOURNEY PAGE — Enterprise-Level Immersive Experience
+   Vertical Scroll Timeline with Parallax, Slow-motion Zooms,
+   Clip-path Reveals, Animated Counters, and Cinematic Aesthetics
+   ═══════════════════════════════════════════════════════════════ */
+
+.journey-page {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ─── Global Reveal System (Opacity + Transform only) ─── */
+/* NOTE: No clip-path here — hero lines have their own clip-path system */
+.js-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition:
+        opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.js-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ═══════════════════════════════════════════
+   SECTION 1 — CINEMATIC HERO
+   ═══════════════════════════════════════════ */
+
+.j-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.j-hero__bg {
+    position: absolute;
+    inset: -10%;
+    z-index: 0;
+    animation: heroMegaZoom 30s ease-in-out infinite alternate;
+}
+
+.j-hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5) saturate(1.2);
+}
+
+@keyframes heroMegaZoom {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+
+    50% {
+        transform: scale(1.12) translate(-1%, 1%);
+    }
+
+    100% {
+        transform: scale(1.08) translate(1%, -0.5%);
+    }
+}
+
+.j-hero__vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        radial-gradient(ellipse at center, transparent 30%, rgba(10, 10, 10, 0.7) 100%),
+        linear-gradient(180deg, rgba(10, 10, 10, 0.2) 0%, transparent 30%, transparent 60%, var(--color-bg-primary) 100%);
+}
+
+.j-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.j-hero__eyebrow {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--color-accent-gold);
+    margin-bottom: 2rem;
+    display: block;
+    transition-delay: 0.2s;
+}
+
+.j-hero__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.85;
+    margin-bottom: 2rem;
+}
+
+.j-hero__line {
+    display: block;
+    font-size: clamp(4rem, 12vw, 11rem);
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    transition:
+        clip-path 1.6s cubic-bezier(0.77, 0, 0.175, 1),
+        opacity 1.6s ease;
+    opacity: 0;
+}
+
+.j-hero__line:nth-child(1) {
+    transition-delay: 0.3s;
+}
+
+.j-hero__line:nth-child(2) {
+    transition-delay: 0.5s;
+}
+
+.j-hero__line:nth-child(3) {
+    transition-delay: 0.7s;
+}
+
+.j-hero__line.is-visible {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+}
+
+.j-hero__line--accent {
+    font-weight: 700;
+    font-size: clamp(5rem, 14vw, 13rem);
+    background: linear-gradient(135deg, #fff 0%, var(--color-accent-gold) 50%, #fff 100%);
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerText 4s ease-in-out infinite;
+}
+
+@keyframes shimmerText {
+    0% {
+        background-position: 200% center;
+    }
+
+    100% {
+        background-position: -200% center;
+    }
+}
+
+.j-hero__subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: var(--color-text-secondary);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    transition-delay: 0.9s;
+}
+
+.j-hero__scroll-cue {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.5s forwards;
+}
+
+.j-hero__scroll-line {
+    width: 1px;
+    height: 50px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.j-hero__scroll-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--color-accent-gold));
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+    0% {
+        top: -100%;
+    }
+
+    50% {
+        top: 100%;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+
+/* ═══════════════════════════════════════════
+   SECTION 2 — MANIFESTO
+   ═══════════════════════════════════════════ */
+
+.j-manifesto {
+    position: relative;
+    z-index: 5;
+    padding: clamp(8rem, 15vw, 14rem) clamp(2rem, 5vw, 6rem);
+    background: var(--color-bg-primary);
+}
+
+.j-manifesto__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .j-manifesto__container {
+        grid-template-columns: 1.2fr 1fr;
+        gap: 8rem;
+    }
+}
+
+.j-manifesto__text h2 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 200;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+}
+
+.j-manifesto__text h2 .gold {
+    color: var(--color-accent-gold);
+    font-weight: 300;
+}
+
+.j-manifesto__text p {
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+}
+
+.j-manifesto__image {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.j-manifesto__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 8s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: scale(1.05);
+}
+
+.j-manifesto__image.is-visible img {
+    transform: scale(1);
+}
+
+.j-manifesto__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.6) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Principles Grid */
+.j-principles-section {
+    position: relative;
+    z-index: 5;
+    padding: clamp(6rem, 10vw, 10rem) clamp(2rem, 5vw, 6rem);
+    background: var(--color-bg-primary);
+}
+
+.j-principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.j-principle {
+    padding: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.j-principle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-accent-gold), transparent);
+    transform: scaleX(0);
+    transition: transform 0.6s ease;
+}
+
+.j-principle:hover::before {
+    transform: scaleX(1);
+}
+
+.j-principle:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(201, 169, 110, 0.2);
+    transform: translateY(-4px);
+}
+
+.j-principle__icon {
+    font-size: 2rem;
+    color: var(--color-accent-gold);
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.j-principle h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.j-principle p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+.j-principle:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.j-principle:nth-child(2) {
+    transition-delay: 0.25s;
+}
+
+.j-principle:nth-child(3) {
+    transition-delay: 0.4s;
+}
+
+
+/* ═══════════════════════════════════════════
+   SECTION 3 — VERTICAL TIMELINE
+   ═══════════════════════════════════════════ */
+
+.j-timeline {
+    position: relative;
+    padding: clamp(8rem, 15vw, 14rem) clamp(2rem, 5vw, 6rem);
+    background: var(--color-bg-secondary);
+    overflow: hidden;
+}
+
+.j-timeline__header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto clamp(6rem, 10vw, 10rem);
+}
+
+.j-timeline__eyebrow {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-accent-gold);
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.j-timeline__header h2 {
+    font-size: clamp(3.5rem, 7vw, 7rem);
+    font-weight: 100;
+    background: linear-gradient(180deg, #fff 0%, var(--color-text-muted) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.j-timeline__header p {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    color: var(--color-text-secondary);
+}
+
+/* The vertical center line with glow pulse */
+.j-timeline__line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(201, 169, 110, 0.3) 10%,
+            rgba(201, 169, 110, 0.3) 90%,
+            transparent 100%);
+    transform: translateX(-50%);
+    z-index: 1;
+    animation: timelineGlow 3s ease-in-out infinite;
+}
+
+@keyframes timelineGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 8px rgba(201, 169, 110, 0.15);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(201, 169, 110, 0.4);
+    }
+}
+
+/* Milestone List */
+.j-timeline__list {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6rem, 12vw, 10rem);
+}
+
+/* Individual Milestone Card */
+.j-milestone {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 5vw, 6rem);
+    align-items: center;
+    position: relative;
+}
+
+/* Dot on the center line */
+.j-milestone::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--color-accent-gold);
+    border-radius: 50%;
+    background: var(--color-bg-secondary);
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.j-milestone.is-visible::before {
+    background: var(--color-accent-gold);
+    box-shadow: 0 0 20px rgba(201, 169, 110, 0.5);
+}
+
+/* Alternating sides */
+.j-milestone--left .j-milestone__image-wrap {
+    order: 1;
+}
+
+.j-milestone--left .j-milestone__content {
+    order: 2;
+    text-align: left;
+}
+
+.j-milestone--right .j-milestone__image-wrap {
+    order: 2;
+}
+
+.j-milestone--right .j-milestone__content {
+    order: 1;
+    text-align: right;
+}
+
+.j-milestone--right .j-milestone__content .milestone-stat {
+    justify-content: flex-end;
+}
+
+/* Image Wrapper */
+.j-milestone__image-wrap {
+    position: relative;
+}
+
+.j-milestone__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    /* Clip-path wipe reveal from left on scroll */
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    transition: clip-path 1.6s cubic-bezier(0.77, 0, 0.175, 1) 0.2s;
+}
+
+.is-visible .j-milestone__image {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Reverse wipe for right-side milestones */
+.j-milestone--right .j-milestone__image {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+
+.j-milestone--right.is-visible .j-milestone__image {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.j-milestone__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+    /* Ultra slow-motion continuous Ken Burns zoom */
+    animation: milestoneSlowZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes milestoneSlowZoom {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+
+    100% {
+        transform: scale(1.08) translate(-1%, 0.5%);
+    }
+}
+
+.j-milestone__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top, rgba(10, 10, 10, 0.7) 0%, transparent 40%),
+        linear-gradient(to right, rgba(10, 10, 10, 0.3) 0%, transparent 30%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Massive ghost year with float animation */
+.j-milestone__year {
+    position: absolute;
+    bottom: -15%;
+    left: -5%;
+    font-size: clamp(7rem, 15vw, 14rem);
+    font-weight: 900;
+    line-height: 0.75;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+    /* Slow floating drift animation */
+    animation: yearFloat 8s ease-in-out infinite alternate;
+    opacity: 0;
+    transition: opacity 2s ease 0.5s;
+}
+
+.is-visible .j-milestone__year {
+    opacity: 1;
+}
+
+@keyframes yearFloat {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    100% {
+        transform: translateY(-10px) translateX(5px);
+    }
+}
+
+.j-milestone--right .j-milestone__year {
+    left: auto;
+    right: -5%;
+}
+
+/* Milestone Content */
+.j-milestone__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.j-milestone__subtitle {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-accent-gold);
+    margin-bottom: 0.75rem;
+    display: block;
+    /* Staggered child animation */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+}
+
+.is-visible .j-milestone__subtitle {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.j-milestone__title {
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 200;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    /* Gradient shimmer on title */
+    background: linear-gradient(90deg, #fff 0%, var(--color-accent-gold) 50%, #fff 100%);
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleShimmer 6s ease-in-out infinite;
+    /* Staggered child animation */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.55s, transform 0.8s ease 0.55s;
+}
+
+.is-visible .j-milestone__title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes titleShimmer {
+    0% {
+        background-position: 300% center;
+    }
+
+    100% {
+        background-position: -300% center;
+    }
+}
+
+.j-milestone__desc {
+    font-size: clamp(1rem, 1.2vw, 1.1rem);
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    /* Staggered child animation */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.7s, transform 0.8s ease 0.7s;
+}
+
+.is-visible .j-milestone__desc {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stat Counter */
+.milestone-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* Staggered child animation */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.85s, transform 0.8s ease 0.85s;
+}
+
+.is-visible .milestone-stat {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stat-number {
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 100;
+    color: var(--color-accent-gold);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-secondary);
+}
+
+
+/* ═══════════════════════════════════════════
+   SECTION 4 — FULL-SCREEN QUOTE
+   ═══════════════════════════════════════════ */
+
+.j-quote {
+    position: relative;
+    z-index: 5;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+    background: var(--color-bg-primary);
+}
+
+.j-quote blockquote {
+    text-align: center;
+    max-width: 900px;
+}
+
+.j-quote blockquote p {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 200;
+    line-height: 1.3;
+    margin-bottom: 2rem;
+    /* Dramatic letter-spacing animation */
+    letter-spacing: 0.2em;
+    transition: letter-spacing 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.j-quote .is-visible p {
+    letter-spacing: 0;
+}
+
+.j-quote blockquote em {
+    font-style: italic;
+    color: var(--color-accent-gold);
+    font-weight: 300;
+}
+
+.j-quote cite {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-style: normal;
+}
+
+
+/* ═══════════════════════════════════════════
+   SECTION 5 — CTA OUTRO
+   ═══════════════════════════════════════════ */
+
+.j-cta {
+    position: relative;
+    z-index: 5;
+    padding: clamp(8rem, 15vw, 15rem) 2rem;
+    text-align: center;
+    background: var(--color-bg-primary);
+}
+
+.j-cta__content h2 {
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 100;
+    margin-bottom: 1.5rem;
+}
+
+.j-cta__content p {
+    font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+    color: var(--color-text-secondary);
+    margin-bottom: 4rem;
+}
+
+.j-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--color-accent-gold);
+    color: #0a0a0a;
+    padding: 1.25rem 3.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.j-cta__btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+.j-cta__btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+}
+
+.j-cta__btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.j-cta__btn:hover {
+    color: #0a0a0a;
+    box-shadow: 0 15px 40px rgba(201, 169, 110, 0.3);
+}
+
+.j-cta__btn:hover svg {
+    transform: translateX(6px);
+}
+
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 1023px) {
+    .j-timeline__line {
+        left: 2rem;
+    }
+
+    .j-milestone {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding-left: 4rem;
+    }
+
+    .j-milestone::before {
+        left: 2rem;
+        top: 2rem;
+    }
+
+    /* Stack everything vertically on mobile */
+    .j-milestone--left .j-milestone__image-wrap,
+    .j-milestone--right .j-milestone__image-wrap {
+        order: 1;
+    }
+
+    .j-milestone--left .j-milestone__content,
+    .j-milestone--right .j-milestone__content {
+        order: 2;
+        text-align: left;
+    }
+
+    .j-milestone--right .j-milestone__content .milestone-stat {
+        justify-content: flex-start;
+    }
+
+    .j-milestone__year {
+        font-size: clamp(5rem, 15vw, 8rem);
+    }
+}

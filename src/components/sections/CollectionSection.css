@@ -1,0 +1,249 @@
+.collection-section {
+    padding: var(--section-padding);
+    background: var(--color-bg-primary);
+    position: relative;
+}
+
+.collection-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.collection-header .section-title {
+    font-weight: var(--font-weight-light);
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.collection-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--spacing-md);
+    padding: 0.7rem 2rem;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-hover);
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: var(--transition-smooth);
+}
+
+.collection-view-all:hover {
+    background: var(--color-text-primary);
+    color: var(--color-bg-primary);
+    border-color: var(--color-text-primary);
+}
+
+/* ─── Grid ─── */
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ─── Card (Framer-style) ─── */
+.collection-card {
+    position: relative;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.11) 0px 0px 20px 0px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    background: #fff;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collection-card:hover {
+    transform: translateY(-6px);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 40px 0px;
+}
+
+/* Inner container */
+.collection-card-inner {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 2/3;
+}
+
+/* Image */
+.collection-card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collection-card:hover .collection-card-img {
+    transform: scale(1.05);
+}
+
+/* Garage Toggle Button */
+.garage-toggle-btn {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.garage-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.garage-toggle-btn.saved {
+    background: rgba(201, 169, 110, 0.2);
+    border-color: var(--color-accent-gold);
+    color: var(--color-accent-gold);
+}
+
+.garage-toggle-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.garage-toggle-btn.saved svg {
+    transform: scale(1.1);
+}
+
+/* Bottom gradient overlay with blur */
+.collection-card-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+    filter: blur(1px);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    pointer-events: none;
+}
+
+/* Text wrapper (car name + price) — always visible */
+.collection-card-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.collection-card-name {
+    font-size: 1.1rem;
+    font-weight: var(--font-weight-semibold);
+    color: #fff;
+    letter-spacing: 0.02em;
+}
+
+.collection-card-price {
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-light);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hover-reveal metadata labels */
+.collection-card-meta {
+    position: absolute;
+    z-index: 2;
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.08em;
+    color: #fff;
+    padding: 0.35rem 0.9rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 50px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    white-space: nowrap;
+}
+
+.collection-card:hover .collection-card-meta {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.collection-card-meta--type {
+    top: 1.2rem;
+    left: 1.2rem;
+    transition-delay: 0.05s;
+}
+
+.collection-card-meta--brand {
+    top: 1.2rem;
+    right: 1.2rem;
+    left: auto;
+    transform: translateX(20px);
+    transition-delay: 0.1s;
+}
+
+.collection-card:hover .collection-card-meta--brand {
+    transform: translateX(0);
+}
+
+.collection-card-meta--condition {
+    top: 3.2rem;
+    left: 1.2rem;
+    transition-delay: 0.15s;
+}
+
+/* Divider */
+.collection-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent-gold), transparent);
+}
+
+@media (max-width: 1024px) {
+    .collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .collection-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .collection-card-inner {
+        aspect-ratio: 3/4;
+    }
+}

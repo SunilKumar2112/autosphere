@@ -1,0 +1,292 @@
+.site-footer {
+    background: var(--color-bg-primary);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    /* Softer top border */
+    padding: var(--spacing-xl) clamp(2rem, 5vw, 5rem) var(--spacing-lg);
+    position: relative;
+}
+
+/* Subtle glow at top of footer */
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.3), transparent);
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1400px;
+    /* Matched to main container sizes */
+    margin: 0 auto;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding-bottom: 4rem;
+}
+
+/* ─── Brand ─── */
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex: 1;
+    min-width: 250px;
+    max-width: 320px;
+}
+
+.footer-logo {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.footer-tagline {
+    font-size: 0.85rem;
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-muted);
+    line-height: 1.8;
+}
+
+/* ─── Navigation ─── */
+.footer-links {
+    display: flex;
+    gap: clamp(2rem, 5vw, 5rem);
+    flex: 2;
+    min-width: 300px;
+}
+
+.footer-link-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex: 1;
+}
+
+.footer-link-title {
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+}
+
+.footer-link-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.footer-link {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    font-weight: var(--font-weight-light);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.footer-link:hover {
+    color: var(--color-accent-gold);
+    padding-left: 4px;
+    /* Subtle interaction */
+}
+
+/* ─── Newsletter ─── */
+.footer-newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex: 1;
+    min-width: 280px;
+}
+
+.footer-newsletter-title {
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+}
+
+.footer-newsletter-form {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: border-color 0.3s ease;
+}
+
+.footer-newsletter-form:focus-within {
+    border-bottom-color: var(--color-accent-gold);
+}
+
+.footer-newsletter-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.8rem 0;
+    outline: none;
+}
+
+.footer-newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-newsletter-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 0 0.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.footer-newsletter-form:focus-within .footer-newsletter-btn {
+    color: var(--color-accent-gold);
+}
+
+.footer-newsletter-btn:hover {
+    color: #fff;
+    transform: translateX(3px);
+}
+
+.footer-newsletter-success {
+    font-size: 0.9rem;
+    color: var(--color-accent-gold);
+    animation: fadeIn 0.5s ease;
+}
+
+.footer-btn-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: var(--color-accent-gold);
+    border-radius: 50%;
+    animation: footer-spin 0.8s linear infinite;
+}
+
+@keyframes footer-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── Bottom Bar ─── */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    /* Same as top border */
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    /* Allows it to break out of footer-top's container behavior conceptually */
+    width: 100%;
+    position: absolute;
+    bottom: var(--spacing-lg);
+    left: clamp(2rem, 5vw, 5rem);
+    right: clamp(2rem, 5vw, 5rem);
+    width: auto;
+}
+
+/* Because of absolute positioning of bottom on very tall screens, ensure footer root is tall enough */
+.site-footer {
+    padding-bottom: 120px;
+}
+
+.footer-copy {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    font-weight: var(--font-weight-light);
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-social-link {
+    color: var(--color-text-muted);
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+}
+
+.footer-social-link:hover {
+    color: var(--color-accent-gold);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+    .footer-bottom {
+        position: relative;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .site-footer {
+        padding-bottom: var(--spacing-lg);
+    }
+
+    .footer-top {
+        padding-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-top {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .footer-links {
+        gap: 2.5rem;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .footer-link-group {
+        min-width: 140px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+}

@@ -1,0 +1,345 @@
+/* ═══════════════════════════════════════════════════════════════
+   AUTOSPHERE CONTACT PAGE — Enterprise Design System
+   BEM Naming: cnt-[element]--[modifier]
+   ═══════════════════════════════════════════════════════════════ */
+
+.contact-page {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ─── Global Reveal System ─── */
+.cnt-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.cnt-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── Layout ─── */
+.cnt-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+@media (max-width: 992px) {
+    .cnt-layout {
+        flex-direction: column;
+    }
+}
+
+/* ════════════════════════════════════════════
+   LEFT: Visual Hero
+   ════════════════════════════════════════════ */
+.cnt-visual {
+    flex: 1 1 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem;
+    overflow: hidden;
+    background: #000;
+}
+
+@media (max-width: 992px) {
+    .cnt-visual {
+        flex: none;
+        min-height: 60vh;
+        padding: 8rem 5% 4rem;
+    }
+}
+
+.cnt-visual__bg {
+    position: absolute;
+    inset: -5%;
+    z-index: 1;
+    background: url('/cars/hero-3.avif') center/cover no-repeat;
+    opacity: 0.6;
+    animation: cntSlowZoom 40s ease-in-out infinite alternate;
+}
+
+/* Gradient overlay to ensure text readability */
+.cnt-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(0deg, #050505 0%, transparent 100%);
+}
+
+@keyframes cntSlowZoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.15);
+    }
+}
+
+.cnt-visual__content {
+    position: relative;
+    z-index: 10;
+    max-width: 600px;
+}
+
+.cnt-eyebrow {
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    color: var(--color-accent-gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.cnt-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+.cnt-title--accent {
+    font-weight: 500;
+    color: var(--color-accent-gold);
+}
+
+.cnt-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* ════════════════════════════════════════════
+   RIGHT: Form Section
+   ════════════════════════════════════════════ */
+.cnt-form-section {
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 5%;
+    background: #050505;
+}
+
+.cnt-form-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.cnt-form-container h2 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.cnt-form-desc {
+    color: var(--color-text-secondary);
+    margin-bottom: 3rem;
+    font-size: 0.95rem;
+}
+
+.cnt-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.cnt-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .cnt-form__row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cnt-form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cnt-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Base input styling */
+.cnt-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    /* Vercel rule: only animate transform/opacity/colors */
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    /* Critical Vercel rule: Do NOT use outline: none without a replacement */
+    outline: none;
+}
+
+/* Hover state increases contrast (Vercel rule) */
+.cnt-input:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Focus-visible state (Vercel rule implementation) */
+.cnt-input:focus-visible {
+    border-color: var(--color-accent-gold);
+    background: rgba(201, 169, 110, 0.05);
+    box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.2);
+}
+
+/* Special adjustments for select */
+.cnt-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.cnt-select option {
+    background: #111;
+    color: #fff;
+}
+
+.cnt-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ─── Submit Button ─── */
+.cnt-form__actions {
+    margin-top: 1rem;
+}
+
+.cnt-submit {
+    position: relative;
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--color-accent-gold);
+    color: #000;
+    border: none;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Vercel rule */
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    outline: none;
+}
+
+.cnt-submit:hover:not(:disabled) {
+    background: #d4b884;
+}
+
+.cnt-submit:focus-visible {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-accent-gold);
+}
+
+.cnt-submit:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.cnt-submit:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.cnt-submit--loading .cnt-submit__text {
+    opacity: 0;
+}
+
+.cnt-submit--success {
+    background: #2a2a2a;
+    color: #fff;
+}
+
+/* Spinner Animation */
+.cnt-spinner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    stroke: #000;
+    animation: cntRotate 2s linear infinite;
+}
+
+.cnt-spinner circle {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    animation: cntDash 1.5s ease-in-out infinite;
+    stroke-linecap: round;
+}
+
+@keyframes cntRotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes cntDash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -35px;
+    }
+
+    100% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -124px;
+    }
+}
+
+/* Success Message */
+.cnt-form__success-msg {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(201, 169, 110, 0.1);
+    border-left: 3px solid var(--color-accent-gold);
+    color: #fff;
+    font-size: 0.9rem;
+    animation: cntFadeIn 0.3s ease-out forwards;
+}
+
+@keyframes cntFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

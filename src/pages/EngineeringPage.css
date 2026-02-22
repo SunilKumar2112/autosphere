@@ -1,0 +1,570 @@
+/* ═══════════════════════════════════════════════════════════════
+   AUTOSPHERE ENGINEERING PAGE — Enterprise Design System
+   BEM Naming: eng-[element]--[modifier]
+   ═══════════════════════════════════════════════════════════════ */
+
+.engineering-page {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Hardware acceleration for smooth scrolling */
+    transform: translateZ(0);
+}
+
+/* ─── Global Reveal System ─── */
+.eng-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+        opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.eng-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ════════════════════════════════════════════
+   SECTION 1: The Blueprint Hero
+   ════════════════════════════════════════════ */
+.eng-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10%;
+    overflow: hidden;
+    background: #050505;
+}
+
+/* Base Blueprint Grid Background */
+.eng-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(201, 169, 110, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 169, 110, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.eng-hero__blueprint-bg {
+    position: absolute;
+    inset: -5%;
+    /* slightly larger to allow zooming */
+    z-index: 1;
+    /* We use a high contrast car image and blend it like a blueprint */
+    background: url('/cars/eng-blueprint.png') center/cover no-repeat;
+    opacity: 0.25;
+    mix-blend-mode: luminosity;
+    filter: contrast(120%) brightness(80%);
+    animation: slowZoom 30s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+/* Animated Scanner Line */
+.eng-hero__scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--color-accent-gold), transparent);
+    box-shadow: 0 0 20px 5px rgba(201, 169, 110, 0.4);
+    animation: scan 8s linear infinite;
+    z-index: 2;
+}
+
+@keyframes scan {
+    0% {
+        transform: translateY(-10vh);
+    }
+
+    100% {
+        transform: translateY(110vh);
+    }
+}
+
+.eng-hero__content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    /* Ensure text wraps nicely per Vercel guidelines */
+    text-wrap: balance;
+}
+
+.eng-eyebrow {
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    color: var(--color-accent-gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2rem;
+}
+
+.eng-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+}
+
+.eng-title--accent {
+    font-weight: 500;
+    color: var(--color-accent-gold);
+    background: linear-gradient(45deg, var(--color-accent-gold), #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.eng-subtitle {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.eng-hero__scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 10%;
+    width: 1px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 10;
+    overflow: hidden;
+}
+
+.eng-hero__scroll-line {
+    display: block;
+    width: 100%;
+    height: 50%;
+    background: var(--color-accent-gold);
+    animation: drop 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes drop {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    50% {
+        transform: translateY(200%);
+    }
+
+    100% {
+        transform: translateY(200%);
+    }
+}
+
+/* ════════════════════════════════════════════
+   SECTION 2: Aerodynamic Mastery
+   ════════════════════════════════════════════ */
+.eng-aero {
+    position: relative;
+    padding: 10rem 10%;
+    background: linear-gradient(to bottom, #050505, var(--color-bg-primary));
+}
+
+.eng-aero__text {
+    max-width: 600px;
+    margin-bottom: 6rem;
+    position: relative;
+    z-index: 10;
+}
+
+.eng-aero__text h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
+
+.eng-aero__text p {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+}
+
+.eng-aero__tunnel {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+}
+
+.eng-aero__car-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    filter: grayscale(100%) contrast(1.2);
+    z-index: 1;
+}
+
+/* Simulated Wind Tunnel Smoke Trails */
+.eng-aero__smoke {
+    position: absolute;
+    left: -100%;
+    height: 2px;
+    width: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    z-index: 2;
+    filter: blur(4px);
+    opacity: 0.5;
+    animation: wind 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.eng-aero__smoke--top {
+    top: 30%;
+    animation-duration: 2.5s;
+    animation-delay: 0.2s;
+}
+
+.eng-aero__smoke--mid {
+    top: 55%;
+    height: 4px;
+    filter: blur(6px);
+    animation-duration: 4s;
+}
+
+.eng-aero__smoke--bottom {
+    top: 80%;
+    animation-duration: 3.2s;
+    animation-delay: 0.5s;
+}
+
+@keyframes wind {
+    0% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateX(50%);
+        opacity: 0;
+    }
+}
+
+/* ════════════════════════════════════════════
+   SECTION 3: The Power Unit (Telemetry)
+   ════════════════════════════════════════════ */
+.eng-telemetry {
+    padding: 10rem 10%;
+    background: var(--color-bg-primary);
+    position: relative;
+}
+
+.eng-telemetry__header {
+    text-align: center;
+    margin-bottom: 8rem;
+}
+
+.eng-telemetry__header h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+}
+
+.eng-telemetry__header p {
+    color: var(--color-text-secondary);
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+.eng-telemetry__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 4rem;
+}
+
+.eng-telemetry-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.eng-telemetry-card__dial {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin-bottom: 2rem;
+}
+
+.eng-dial-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    /* Start from top */
+    overflow: visible;
+}
+
+.eng-dial-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.03);
+    stroke-width: 12;
+}
+
+.eng-dial-progress {
+    fill: none;
+    stroke-width: 12;
+    stroke-linecap: round;
+    /* Circumference = 2 * PI * r = 2 * 3.14159 * 48 = ~301 */
+    stroke-dasharray: 301;
+    stroke-dashoffset: 301;
+    transition: stroke-dashoffset 2.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+    filter: drop-shadow(0 0 8px rgba(201, 169, 110, 0.4));
+}
+
+/* Animate dialed value when parent is visible */
+.eng-telemetry-card.is-visible .eng-dial-progress {
+    stroke-dashoffset: var(--target-offset, 60);
+}
+
+.eng-telemetry-card__value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Vercel guidelines recommend tabular numbers for data */
+    font-variant-numeric: tabular-nums;
+}
+
+.eng-val {
+    font-size: 3.2rem;
+    font-weight: 300;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.eng-unit {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--color-accent-gold);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.eng-telemetry-card__info {
+    text-align: center;
+}
+
+.eng-tech-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--color-accent-gold);
+    color: var(--color-accent-gold);
+    border-radius: 100px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.eng-telemetry-card h3 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.eng-telemetry-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+
+/* ════════════════════════════════════════════
+   SECTION 4: Deep Architecture
+   ════════════════════════════════════════════ */
+.eng-architecture {
+    padding: 10rem 10%;
+    background: url('/cars/card-4.avif') center/cover no-repeat fixed;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.eng-architecture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+}
+
+.eng-arch__container {
+    position: relative;
+    z-index: 10;
+    max-width: 600px;
+}
+
+.eng-arch__content h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.eng-arch__content p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.eng-arch__list {
+    list-style: none;
+    padding: 0;
+    margin: 3rem 0 0 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.eng-arch__list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: var(--color-accent-gold);
+}
+
+.eng-arch__list strong {
+    color: #fff;
+    font-weight: 400;
+}
+
+/* ════════════════════════════════════════════
+   SECTION 5: Materials
+   ════════════════════════════════════════════ */
+.eng-materials {
+    padding: 10rem 10%;
+    background: #000;
+}
+
+.eng-materials__header {
+    margin-bottom: 5rem;
+}
+
+.eng-materials__header h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+}
+
+.eng-materials__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.eng-material-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    cursor: crosshair;
+    /* Translate ONLY, per Vercel animation guidelines */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+}
+
+.eng-material-card:hover {
+    transform: translateY(-8px);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.eng-material-card__icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-accent-gold);
+    margin-bottom: 2rem;
+}
+
+.eng-material-card h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.eng-material-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.eng-material-card__spec {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(201, 169, 110, 0.1);
+    color: var(--color-accent-gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+}
+
+/* Interactive Glare */
+.eng-material-card__glare {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(201, 169, 110, 0.15), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.eng-material-card:hover .eng-material-card__glare {
+    opacity: 1;
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .eng-hero {
+        padding: 0 5%;
+    }
+
+    .eng-aero,
+    .eng-telemetry,
+    .eng-materials {
+        padding: 5rem 5%;
+    }
+
+    .eng-aero__tunnel {
+        height: 300px;
+    }
+}

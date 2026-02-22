@@ -1,0 +1,492 @@
+/* ═══════════════════════════════════════════════════════════════
+   AUTOSPHERE NAVBAR — Enterprise Design System
+   BEM Naming: as-navbar__[element]--[modifier]
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap');
+
+/* ─── Base Navbar ─── */
+
+.as-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    box-sizing: border-box;
+    z-index: 1000;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    background: transparent;
+    font-family: 'Outfit', sans-serif;
+}
+
+.as-navbar--scrolled {
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 1rem 4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ─── Brand / Logo ─── */
+
+.as-navbar__brand {
+    flex-shrink: 0;
+}
+
+.as-navbar__logo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease;
+}
+
+.as-navbar__logo:hover {
+    opacity: 0.8;
+}
+
+
+/* ─── Desktop Navigation Links ─── */
+
+.as-navbar__nav-group {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.as-navbar__nav-list {
+    display: flex;
+    gap: 3.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.as-navbar__nav-link {
+    /* Reset for both <a> and <button> */
+    background: none;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: #a0a0a0;
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s ease;
+    padding: 0 0 4px 0;
+}
+
+.as-navbar__nav-link:hover {
+    color: #ffffff;
+}
+
+/* Animated underline on hover */
+.as-navbar__nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-accent-gold), #fff);
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.as-navbar__nav-link:hover::after {
+    width: 100%;
+}
+
+/* Active state — persistent gold underline */
+.as-navbar__nav-link--active {
+    color: var(--color-accent-gold);
+}
+
+.as-navbar__nav-link--active::after {
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: var(--color-accent-gold);
+    /* Retained from original, as it's a specific active style */
+}
+
+
+/* ─── Actions (CTA + Hamburger) ─── */
+
+.as-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    /* Original gap */
+    flex-shrink: 0;
+}
+
+.as-navbar__garage-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--color-text-primary);
+    /* Assuming --color-text-primary is defined elsewhere, otherwise it will be invalid */
+    cursor: pointer;
+    position: relative;
+    padding: 0.5rem;
+    transition: var(--transition-smooth);
+    /* Assuming --transition-smooth is defined elsewhere */
+}
+
+.as-navbar__garage-btn:hover {
+    color: var(--color-accent-gold);
+    transform: scale(1.05);
+}
+
+.garage-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--color-accent-gold);
+    color: #000;
+    font-size: 0.65rem;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(25%, -25%);
+}
+
+.as-navbar__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.6rem 1.8rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.as-navbar__cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+}
+
+.as-navbar__cta-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.as-navbar__cta-btn:hover {
+    color: #0a0a0a;
+    border-color: #ffffff;
+}
+
+.as-navbar__cta-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.as-navbar__cta-btn:hover svg {
+    transform: translateX(4px);
+}
+
+
+/* ─── Hamburger Menu (Mobile) ─── */
+
+.as-navbar__hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 1001;
+}
+
+.as-navbar__hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: #fff;
+    transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    transform-origin: center;
+}
+
+.as-navbar__hamburger--active span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+}
+
+.as-navbar__hamburger--active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.as-navbar__hamburger--active span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+}
+
+
+/* ═══════════════════════════════════════════
+   MOBILE OVERLAY MENU
+   ═══════════════════════════════════════════ */
+
+.as-mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.as-mobile-menu--open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.as-mobile-menu__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    text-align: center;
+}
+
+.as-mobile-menu__item {
+    transform: translateY(30px);
+    opacity: 0;
+    transition:
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.6s ease;
+}
+
+.as-mobile-menu--open .as-mobile-menu__item {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.as-mobile-menu__link {
+    background: none;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 200;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    transition: color 0.3s ease;
+}
+
+.as-mobile-menu__link:hover {
+    color: var(--color-accent-gold);
+}
+
+.as-mobile-menu__link-number {
+    font-size: 0.75rem;
+    color: var(--color-accent-gold);
+    letter-spacing: 0.1em;
+    font-weight: 400;
+}
+
+.as-mobile-menu__footer {
+    margin-top: 4rem;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.4s;
+}
+
+.as-mobile-menu--open .as-mobile-menu__footer {
+    opacity: 1;
+}
+
+.as-navbar__cta-btn--mobile {
+    font-size: 0.85rem;
+    padding: 0.8rem 2.5rem;
+}
+
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+    .as-navbar__nav-group {
+        display: none;
+    }
+
+    .as-navbar__cta-btn:not(.as-navbar__cta-btn--mobile) {
+        display: none;
+    }
+
+    .as-navbar__hamburger {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .as-navbar,
+    .as-navbar--scrolled {
+        padding: 1rem 2rem;
+    }
+}
+
+/* ─── User Menu (Auth State) ─── */
+
+.as-navbar__user-menu {
+    position: relative;
+}
+
+.as-navbar__avatar-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.as-navbar__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c9a96e, #a88b54);
+    color: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.as-navbar__avatar-btn:hover .as-navbar__avatar {
+    transform: scale(1.08);
+    box-shadow: 0 0 16px rgba(201, 169, 110, 0.3);
+}
+
+.as-navbar__dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    min-width: 200px;
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid rgba(201, 169, 110, 0.15);
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.as-navbar__dropdown-header {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: #e8e0d2;
+}
+
+.as-navbar__dropdown-email {
+    font-size: 0.75rem;
+    color: rgba(232, 224, 210, 0.4);
+}
+
+.as-navbar__dropdown-item {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    color: rgba(232, 224, 210, 0.7);
+    font-size: 0.85rem;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s, color 0.15s;
+}
+
+.as-navbar__dropdown-item:hover {
+    background: rgba(201, 169, 110, 0.08);
+    color: #c9a96e;
+}
+
+/* ─── Checkout Button ─── */
+
+.checkout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.3s;
+}
+
+.checkout-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.checkout-btn-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(10, 10, 10, 0.2);
+    border-top-color: #0a0a0a;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}

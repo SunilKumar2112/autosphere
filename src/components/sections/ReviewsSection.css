@@ -1,0 +1,200 @@
+.reviews-section {
+    position: relative;
+    padding: 100px 5%;
+    background-color: #050505;
+    background-image: radial-gradient(circle at 50% 0%, rgba(201, 169, 110, 0.05), transparent 50%);
+    color: #fff;
+    overflow: hidden;
+}
+
+.reviews-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reviews-container.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reviews-header-block {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 32px;
+}
+
+/* ─── Review Card (Compound Root) ─── */
+
+.review-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 32px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.reviews-container.animate-in .review-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reviews-container.animate-in .review-anim-delay-1 {
+    transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+
+.reviews-container.animate-in .review-anim-delay-2 {
+    transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
+}
+
+.reviews-container.animate-in .review-anim-delay-3 {
+    transition: opacity 0.6s ease 0.6s, transform 0.6s ease 0.6s;
+}
+
+.review-card:hover {
+    transform: translateY(-5px) !important;
+    /* Override anim */
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(201, 169, 110, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+    /* Override anim */
+}
+
+/* ─── Header ─── */
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.review-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(201, 169, 110, 0.5);
+}
+
+.review-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.review-author {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.review-role {
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0;
+    font-family: monospace;
+    letter-spacing: 0.5px;
+}
+
+.review-company {
+    color: #c9a96e;
+}
+
+.review-verified {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #6ee7b7;
+    margin-top: 2px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ─── Sentiment ─── */
+
+.review-sentiment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.review-stars {
+    display: flex;
+    gap: 4px;
+    color: #333;
+    /* empty star color */
+}
+
+.review-stars .star.filled {
+    color: #c9a96e;
+}
+
+.sentiment-badge {
+    background: rgba(201, 169, 110, 0.1);
+    color: #c9a96e;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ─── Body ─── */
+
+.review-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.review-highlight {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #fff;
+    margin: 0;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+.review-text {
+    font-size: 0.95rem;
+    color: #aaa;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .reviews-section {
+        padding: 60px 5%;
+    }
+
+    .review-card {
+        padding: 24px;
+    }
+
+    .review-highlight {
+        font-size: 1.15rem;
+    }
+}

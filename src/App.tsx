@@ -5,6 +5,8 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import SkipLink from './components/ui/SkipLink';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Lazy-load pages (bundle-dynamic-imports rule)
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -91,6 +93,8 @@ function App() {
         <AnimatedRoutes />
       </main>
       <Footer />
+      <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   );
 }

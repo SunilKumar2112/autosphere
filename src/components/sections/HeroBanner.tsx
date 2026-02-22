@@ -5,6 +5,9 @@ const HeroBanner = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [loaded, setLoaded] = useState(false);
 
+    // Dynamic video source for Vercel Blob or external CDN
+    const HERO_VIDEO_URL = import.meta.env.VITE_HERO_VIDEO_URL || "/hero-video.mp4";
+
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
@@ -29,7 +32,7 @@ const HeroBanner = () => {
                 <video
                     ref={videoRef}
                     className={`hero-video ${loaded ? 'loaded' : ''}`}
-                    src="/hero-video.mp4"
+                    src={HERO_VIDEO_URL}
                     poster="/cars/journey-hero.png"
                     autoPlay
                     muted

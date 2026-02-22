@@ -33,7 +33,10 @@ const SEO = ({ title, description, type = 'website', name = 'AutoSphere' }: SEOP
         const ogUrl = document.querySelector('meta[property="og:url"]');
         if (ogUrl) ogUrl.setAttribute('content', window.location.origin + location.pathname);
 
-    }, [siteTitle, description, location.pathname]);
+        const ogType = document.querySelector('meta[property="og:type"]');
+        if (ogType) ogType.setAttribute('content', type);
+
+    }, [siteTitle, description, location.pathname, type]);
 
     return null;
 };

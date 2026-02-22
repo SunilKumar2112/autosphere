@@ -24,13 +24,18 @@ const HeroBanner = () => {
 
     return (
         <section className="hero-banner" id="hero">
-            {/* Cinematic background image */}
+            {/* Full-viewport video background with poster fallback */}
             <div className="hero-video-container">
-                <img
-                    src="/cars/journey-hero.png"
-                    alt="Pinnacle of excellence"
-                    className="hero-video loaded"
-                    style={{ objectFit: 'cover', width: '100%', height: '100%', filter: 'brightness(0.6)' }}
+                <video
+                    ref={videoRef}
+                    className={`hero-video ${loaded ? 'loaded' : ''}`}
+                    src="/hero-video.mp4"
+                    poster="/cars/journey-hero.png"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
                 />
             </div>
 

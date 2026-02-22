@@ -23,5 +23,9 @@ export default defineConfig({
     sourcemap: false,
     // Target modern browsers for smaller output
     target: 'es2020',
+    // Increase chunk size warning limit for heavy Three.js/Stripe vendors
+    chunkSizeWarningLimit: 2000,
+    // Explicitly set outDir to 'build' to match Vercel project settings
+    outDir: 'build',
   },
 })

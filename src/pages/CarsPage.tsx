@@ -1,8 +1,13 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CARS } from '../data/cars';
 import './CarsPage.css';
 import ImageWithSkeleton from '../components/ui/ImageWithSkeleton';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const BRANDS = ['All', ...Array.from(new Set(CARS.map((c) => c.brand)))];
 const TYPES = ['All', ...Array.from(new Set(CARS.map((c) => c.type)))];
@@ -14,7 +19,7 @@ const CarsPage = () => {
 
     const [activeBrand, setActiveBrand] = useState('All');
     const [activeType, setActiveType] = useState('All');
-    const cardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
+    const containerRef = useRef<HTMLElement>(null);
 
     const filtered = useMemo(() => {
         return CARS.filter((car) => {
@@ -33,32 +38,32 @@ const CarsPage = () => {
         });
     }, [activeBrand, activeType, queryCondition, queryStatus]);
 
-    // Scroll-triggered card animations
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
+    // Resilient GSAP scroll-triggered animations (Replacing stale IntersectionObserver)
+    useGSAP(() => {
+        const cards = gsap.utils.toArray('.car-card');
+        if (cards.length > 0) {
+            gsap.fromTo(cards,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.08,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.cars-grid',
+                        start: 'top 90%' // Start animation slightly earlier for fluidity
                     }
-                });
-            },
-            { threshold: 0.1 }
-        );
-
-        cardsRef.current.forEach((el) => {
-            if (el) { el.classList.remove('visible'); observer.observe(el); }
-        });
-
-        return () => observer.disconnect();
-    }, [filtered]);
+                }
+            );
+        }
+    }, { scope: containerRef, dependencies: [filtered] });
 
     return (
-        <main className="cars-page">
+        <main className="cars-page" ref={containerRef}>
             {/* Hero Header — Refactored for centered aesthetics */}
             <section className="cars-hero">
-                
+
                 <div className="cars-hero-overlay" />
                 <div className="cars-hero-content">
                     <div className="as-container">
@@ -118,13 +123,11 @@ const CarsPage = () => {
             {/* Cars Grid */}
             <section className="cars-grid-section">
                 <div className="cars-grid">
-                    {filtered.map((car, i) => (
+                    {filtered.map((car) => (
                         <Link
                             to={`/vehicles/${car.id}`}
                             key={car.id}
                             className="car-card"
-                            ref={(el) => { cardsRef.current[i] = el; }}
-                            style={{ transitionDelay: `${i * 0.08}s` }}
                         >
                             <div className="car-card-inner">
                                 <ImageWithSkeleton

@@ -234,9 +234,8 @@
 }
 
 .gs-reveal {
-    opacity: 0;
-    /* Handled by GSAP ScrollTrigger */
-    transform: translateY(30px);
+    /* Handled dynamically by GSAP ScrollTrigger to ensure graceful degradation if JS fails */
+    will-change: opacity, transform;
 }
 
 .detail-section-label {

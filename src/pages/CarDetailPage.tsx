@@ -26,7 +26,6 @@ const CarDetailPage = () => {
 
     const containerRef = useRef<HTMLDivElement>(null);
     const heroRef = useRef<HTMLElement>(null);
-    const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
     // Skills-First: React Rules - Sync top scroll
     useEffect(() => {
@@ -56,15 +55,16 @@ const CarDetailPage = () => {
             delay: 0.6
         });
 
-        // 3. ScrollTrigger for lower sections replacing standard intersecting observer
-        sectionRefs.current.forEach((section) => {
-            if (section) {
-                const reveals = section.querySelectorAll('.gs-reveal');
-                if (reveals.length > 0) {
-                    gsap.to(reveals, {
+        // 3. ScrollTrigger for lower sections using deterministic scoped array
+        const sections = gsap.utils.toArray<HTMLElement>('.detail-section');
+        sections.forEach((section) => {
+            const reveals = gsap.utils.toArray<HTMLElement>('.gs-reveal', section);
+            if (reveals.length > 0) {
+                gsap.fromTo(reveals,
+                    { opacity: 0, y: 30 },
+                    {
                         opacity: 1,
                         y: 0,
-                        x: 0,
                         duration: 1,
                         stagger: 0.1,
                         ease: 'power3.out',
@@ -72,8 +72,8 @@ const CarDetailPage = () => {
                             trigger: section,
                             start: 'top 85%'
                         }
-                    });
-                }
+                    }
+                );
             }
         });
     }, { scope: containerRef, dependencies: [car?.id] });
@@ -104,9 +104,15 @@ const CarDetailPage = () => {
             gsap.to('.hero-img-layer', {
                 scale: 1, filter: 'blur(0px) brightness(1)', opacity: 1, duration: 1.5, ease: 'power3.out'
             });
-            gsap.to('.hero-3d-layer', {
-                opacity: 0, scale: 0.95, duration: 0.8, ease: 'power2.inOut'
-            });
+
+            // Only animate the 3D layer out if it successfully mounted
+            const threeDLayer = document.querySelector('.hero-3d-layer');
+            if (threeDLayer) {
+                gsap.to('.hero-3d-layer', {
+                    opacity: 0, scale: 0.95, duration: 0.8, ease: 'power2.inOut'
+                });
+            }
+
             gsap.fromTo('.hero-anim-img',
                 { scale: 1.05, filter: 'brightness(0.6)' },
                 { scale: 1, filter: 'brightness(1)', duration: 2, ease: 'power2.out' }
@@ -202,10 +208,7 @@ const CarDetailPage = () => {
             </section>
 
             {/* ─── Description ─── */}
-            <section
-                className="detail-description detail-section"
-                ref={(el) => { sectionRefs.current[0] = el; }}
-            >
+            <section className="detail-description detail-section">
                 <div className="detail-desc-inner">
                     <span className="detail-section-label gs-reveal">About</span>
                     <h2 className="detail-section-title gs-reveal">{car.name}</h2>
@@ -214,10 +217,7 @@ const CarDetailPage = () => {
             </section>
 
             {/* ─── Specs Grid ─── */}
-            <section
-                className="detail-specs detail-section"
-                ref={(el) => { sectionRefs.current[1] = el; }}
-            >
+            <section className="detail-specs detail-section">
                 <div>
                     <span className="detail-section-label gs-reveal">Performance</span>
                     <h2 className="detail-section-title gs-reveal">Technical Specifications</h2>
@@ -233,10 +233,7 @@ const CarDetailPage = () => {
             </section>
 
             {/* ─── Features ─── */}
-            <section
-                className="detail-features detail-section"
-                ref={(el) => { sectionRefs.current[2] = el; }}
-            >
+            <section className="detail-features detail-section">
                 <div>
                     <span className="detail-section-label gs-reveal">Highlights</span>
                     <h2 className="detail-section-title gs-reveal">Key Features</h2>
@@ -252,10 +249,7 @@ const CarDetailPage = () => {
             </section>
 
             {/* ─── CTA ─── */}
-            <section
-                className="detail-cta detail-section"
-                ref={(el) => { sectionRefs.current[3] = el; }}
-            >
+            <section className="detail-cta detail-section">
                 <h2 className="detail-cta-title gs-reveal">Interested in this {car.name}?</h2>
                 <p className="detail-cta-text gs-reveal">
                     Schedule a private viewing or speak directly with our concierge team.

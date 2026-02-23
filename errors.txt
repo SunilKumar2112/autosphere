@@ -1,0 +1,104 @@
+\src\components\layout\Navbar.tsx:47 Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Deepika\.gemini\antigravity\playground\dark-newton\autosphere\src\components\layout\Navbar.tsx:47:9
+  45 |     /* ── Close mobile menu on route change ── */
+  46 |     useEffect(() => {
+> 47 |         setIsMobileMenuOpen(false);
+     |         ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  48 |     }, [location.pathname]);
+  49 |
+  50 |     /* ── Smart navigation handler ── */
+\src\components\sections\HeroBanner.tsx:16 Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Deepika\.gemini\antigravity\playground\dark-newton\autosphere\src\components\sections\HeroBanner.tsx:16:13
+  14 |
+  15 |         if (video.readyState >= 3) {
+> 16 |             setLoaded(true);
+     |             ^^^^^^^^^ Avoid calling setState() directly within an effect
+  17 |         }
+  18 |
+  19 |         const onCanPlay = () => setLoaded(true);
+\src\components\ui\ImageWithSkeleton.tsx:25 Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Deepika\.gemini\antigravity\playground\dark-newton\autosphere\src\components\ui\ImageWithSkeleton.tsx:25:9
+  23 |     // Reset state if src changes
+  24 |     useEffect(() => {
+> 25 |         setLoaded(false);
+     |         ^^^^^^^^^ Avoid calling setState() directly within an effect
+  26 |         setError(false);
+  27 |     }, [src]);
+  28 |
+\src\components\ui\ParticlesCanvas.tsx:13 Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Deepika\.gemini\antigravity\playground\dark-newton\autosphere\src\components\ui\ParticlesCanvas.tsx:13:33
+  11 |         const positions = new Float32Array(count * 3);
+  12 |         for (let i = 0; i < count; i++) {
+> 13 |             positions[i * 3] = (Math.random() - 0.5) * 10;
+     |                                 ^^^^^^^^^^^^^ Cannot call impure function
+  14 |             positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+  15 |             positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+  16 |         }
+\src\components\ui\ParticlesCanvas.tsx:14 Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Deepika\.gemini\antigravity\playground\dark-newton\autosphere\src\components\ui\ParticlesCanvas.tsx:14:37
+  12 |         for (let i = 0; i < count; i++) {
+  13 |             positions[i * 3] = (Math.random() - 0.5) * 10;
+> 14 |             positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+     |                                     ^^^^^^^^^^^^^ Cannot call impure function
+  15 |             positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+  16 |         }
+  17 |         return positions;
+\src\components\ui\ParticlesCanvas.tsx:15 Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Deepika\.gemini\antigravity\playground\dark-newton\autosphere\src\components\ui\ParticlesCanvas.tsx:15:37
+  13 |             positions[i * 3] = (Math.random() - 0.5) * 10;
+  14 |             positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+> 15 |             positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+     |                                     ^^^^^^^^^^^^^ Cannot call impure function
+  16 |         }
+  17 |         return positions;
+  18 |     }, [count]);
+\src\components\ui\ParticlesCanvas.tsx:56 Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Deepika\.gemini\antigravity\playground\dark-newton\autosphere\src\components\ui\ParticlesCanvas.tsx:56:9
+  54 |         // Handle accessibility preference for heavy motion
+  55 |         const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+> 56 |         setPrefersReducedMotion(mediaQuery.matches);
+     |         ^^^^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  57 |
+  58 |         const handleMotionChange = (e: MediaQueryListEvent) => {
+  59 |             setPrefersReducedMotion(e.matches);
+\src\context\auth-context.tsx:87 Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+\supabase\functions\stripe-webhook\index.ts:15 Unexpected any. Specify a different type.
+\supabase\functions\stripe-webhook\index.ts:41 Unexpected any. Specify a different type.
+\supabase\functions\stripe-webhook\index.ts:82 Unexpected any. Specify a different type.

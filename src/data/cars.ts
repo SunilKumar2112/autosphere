@@ -24,6 +24,7 @@ export interface Car {
     description: string;
     image: string;
     gallery: string[];
+    sketchfabUrl?: string;
     specs: CarSpec[];
     features: string[];
 }
@@ -63,6 +64,7 @@ export const CARS: Car[] = [
             { label: 'Mileage', value: '12 Delivery Miles' },
         ],
         features: ['Weissach Package', 'Magnesium Forged Wheels', 'PCCB (Ceramic Brakes)', 'Carbon Fiber Full Bucket Seats', 'Club Sport Package (Roll Cage)'],
+        sketchfabUrl: 'https://sketchfab.com/models/e738eae819c34d19a31dd066c45e0f3d/embed?autospin=1&autostart=1&preload=1&transparent=1',
     },
     {
         id: 'lamborghini-huracan-evo',
@@ -96,6 +98,7 @@ export const CARS: Car[] = [
             { label: 'Mileage', value: '45 Miles' },
         ],
         features: ['LDVI Predictive Technology', 'Rear-Wheel Steering', 'Lifting System with Magneto-rheologic Suspension', 'Sensonum Premium Audio System', 'Forged Composites Interior Components'],
+        sketchfabUrl: 'https://sketchfab.com/models/f72666fc65d548798482044124286642/embed',
     },
     {
         id: 'ferrari-f8-tributo',
@@ -129,6 +132,7 @@ export const CARS: Car[] = [
             { label: 'Mileage', value: '85 Miles' },
         ],
         features: ['Carbon Fiber Racing Seats', 'Suspension Lifter', 'Scuderia Ferrari Shields on Fenders', 'Passenger Display Screen', 'JBL Professional Sound System'],
+        sketchfabUrl: 'https://sketchfab.com/models/8a86c4d634f64f8b8ee836bc93fa6ac8/embed?autospin=1&autostart=1&preload=1&transparent=1',
     },
     {
         id: 'mclaren-720s',
@@ -162,6 +166,7 @@ export const CARS: Car[] = [
             { label: 'Mileage', value: '1,240 Miles' },
         ],
         features: ['720S Performance Pack', 'Carbon Fiber Exterior Upgrade Pack 1, 2, & 3', 'Bowers & Wilkins 12-Speaker System', 'Track Telemetry App & Cameras', 'Vehicle Lift'],
+        sketchfabUrl: 'https://sketchfab.com/models/e820cf40821940bcafebf24bec693d16/embed?autospin=1&autostart=1&preload=1&transparent=1',
     },
     {
         id: 'mercedes-amg-gt-r',
@@ -195,6 +200,7 @@ export const CARS: Car[] = [
             { label: 'Mileage', value: '24 Miles' },
         ],
         features: ['AMG Track Pace', 'Burmester High-End Surround Sound', 'Carbon Fiber Roof Component', 'AMG Ceramic High-Performance Composite Braking System'],
+        sketchfabUrl: 'https://sketchfab.com/models/9fdb06fc4eab473ba03a77ebff527732/embed?autospin=1&autostart=1&preload=1&transparent=1',
     },
     {
         id: 'aston-martin-vantage',
@@ -228,6 +234,7 @@ export const CARS: Car[] = [
             { label: 'Mileage', value: '3,100 Miles' },
         ],
         features: ['Tech Collection Package', 'Aston Martin Premium Audio System', 'Sports Plus Collection', 'Q Special Paint Formulation', 'Ventilated Front Seats'],
+        sketchfabUrl: 'https://sketchfab.com/models/75ca92f8d548470d83a7daaacb100bc5/embed?autospin=1&autostart=1&preload=1&transparent=1',
     },
 ];
 

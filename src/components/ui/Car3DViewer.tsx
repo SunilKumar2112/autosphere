@@ -34,8 +34,6 @@ const Car3DViewer = ({ embedUrl, title, modelImage }: Car3DViewerProps) => {
                         title={title}
                         frameBorder="0"
                         allowFullScreen
-                        mozallowfullscreen="true"
-                        webkitallowfullscreen="true"
                         allow="autoplay; fullscreen; xr-spatial-tracking"
                         src={embedUrl}
                     ></iframe>
